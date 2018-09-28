@@ -1,0 +1,47 @@
+/* 1. Colors
+   ========================================================================== */
+   $rco-red: #E52713;
+   $rco-teal: #00B1AA;
+   
+   $primary-color: $rco-teal !default;
+   $primary-color-light: lighten($primary-color, 15%) !default;
+   $primary-color-dark: darken($primary-color, 15%) !default;
+   
+   $secondary-color: $rco-red !default;
+   $success-color: #4CAF50 !default;
+   $error-color: #F44336 !default;
+   $link-color: #29b6f6 !default;
+   
+   $dark-text: rgba(0, 0, 0, 0.87);
+   $dark-secondary-text: rgba(0, 0, 0, 0.54);
+   $dark-hint-text: rgba(0, 0, 0, 0.38);
+   
+   $light-text: rgb(255, 255, 255);
+   $light-secondary-text: rgba(255, 255, 255, 0.70);
+   $light-hint-text: grey;
+   
+   $dark-icon: rgba(0, 0, 0, 0.54);
+   $dark-icon-inactive: rgba(0, 0, 0, 0.38);
+   
+   $light-icon: rgb(255, 255, 255);
+   $light-icon-inactive: rgba(255, 255, 255, 0.50);
+   
+   $divider-light: rgba(0, 0, 0, 0.15);
+   $divider-light-secondary: rgba(0, 0, 0, 0.05);
+   
+   $divider-dark: rgba(255, 255, 255, 0.15);
+   $divider-dark-secondary: rgba(255, 255, 255, 0.05);
+   
+   $primary-background: #FAFAFA;
+   $primary-background-dark: #F5F5F5;
+   $primary-background-light: #FFFFFF;
+   
+   $secondary-background: #303030;
+   $secondary-background-dark: #212121;
+   $secondary-background-light: #424242;
+   
+   $primary-hover: lighten($secondary-color, 40%);
+   $gray-hover: rgba(0, 0, 0, 0.05);
+   
+   $roboto-font-path: "./assets/fonts/roboto/" !default;
+   

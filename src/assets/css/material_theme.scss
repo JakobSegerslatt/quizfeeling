@@ -1,0 +1,23 @@
+@import '~@angular/material/theming';
+// Typography
+$custom-typography: mat-typography-config( $font-family: 'Press Start 2P, cursive, Roboto');
+@include mat-base-typography($custom-typography);
+@include mat-core($custom-typography);
+// LIGHT THEME DEFINITIONS
+$primary: mat-palette($mat-deep-orange);
+$accent: mat-palette($mat-amber, A200, A100, A400);
+$warn: mat-palette($mat-red);
+$light-theme: mat-light-theme($primary, $accent, $warn);
+$dark-theme: mat-dark-theme($primary, $accent, $warn);
+/*
+ * Include theme through angular materials own mixin as well as all our custom components mixins.
+ */
+
+@include angular-material-theme($light-theme);
+.dark-theme {
+    @include angular-material-theme($dark-theme);
+}
+
+body {
+  font-family: 'Press Start 2P'
+}

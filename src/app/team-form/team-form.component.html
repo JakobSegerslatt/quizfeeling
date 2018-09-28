@@ -1,0 +1,30 @@
+<div [formGroup]="form">
+  <div mat-dialog-title>Skapa ett nytt lag</div>
+  <div mat-dialog-content>
+
+    <div class="flex-form">
+
+      <mat-form-field>
+        <input type="text" matInput placeholder="Lagnamn" formControlName="name">
+      </mat-form-field>
+
+
+    </div>
+
+    <mat-form-field class="sound-field">
+      <input matInput placeholder="Ljud" [matAutocomplete]="auto" formControlName="sound">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+        <mat-option *ngFor="let sound of filteredSounds | async" [value]="sound" class="soundsource-option">
+          <mat-icon class="medium-icon" (click)="$event.stopPropagation(); audioService.play(sound)">play_circle_outline</mat-icon>
+          <span>{{ sound.name }}</span> | 
+          <small>{{ sound.quote }}</small>
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close>STÄNG</button>
+    <button mat-button color="primary" (click)="save()" [disabled]="form.invalid">SPARA</button>
+  </div>
+</div>

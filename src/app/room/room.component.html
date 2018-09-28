@@ -1,0 +1,14 @@
+<mat-tab-group>
+  <mat-tab *ngFor="let t of teams$ | async" [label]="t.name">
+    <app-team [team]="t" [disableButton]="disableButton"></app-team>
+  </mat-tab>
+</mat-tab-group>
+<div *ngIf="teamCount === 0" class="pagecontent">
+  <mat-card>
+    <mat-card-title>Inga lag, inget quiz!</mat-card-title>
+    <div>Du kanske kan <b class="pointer" (click)="createTeam()">skapa</b> det första?</div>
+  </mat-card>
+</div>
+<button class="add-button" mat-fab (click)="createTeam()">
+  <mat-icon>add</mat-icon>
+</button>

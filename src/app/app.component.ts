@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
-import { AngularFirestore } from 'angularfire2/firestore';
+
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -9,7 +10,7 @@ import { map } from 'rxjs/operators';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -20,4 +21,7 @@ export class AppComponent {
     private db: AngularFirestore,
     private breakpointObserver: BreakpointObserver,
   ) { }
+
+  ngOnInit() {
+  }
 }

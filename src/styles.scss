@@ -1,15 +1,433 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: 'Roboto', sans-serif; }
+@import 'assets/css/variables';
+@import 'assets/css/material_theme.scss';
+body,
+app-root {
+    height: 100%;
+}
 
-
+body {
+    margin: 0;
+}
 
 .full-height {
     height: 100%;
 }
 
-.mat-tab-group {
-    .mat-tab-body-wrapper {
+.pagecontent {
+    display: flex;
+    justify-content: center;
+    padding: 30px 30px 40px 40px;
+    >* {
+        overflow: auto;
+        min-width: 350px;
+        min-height: 300px;
     }
+}
+
+/* ==========================================================================
+    M6 Common styles, Variables can be found in variables.scss.
+   ========================================================================== */
+
+/**
+ * Table of Contents:
+ *  2. Layout helpers
+ *  3. Typography
+ *  4. Elements
+ *  5. Dialogs
+ *  6. Tables
+ *  7. Forms
+ *  8. Sidenav panels
+ *  9. CSS transitions
+ *  10. Responsive breakpoints
+ */
+
+/* 2. LAYOUT HELPERS
+     ========================================================================== */
+
+.inline {
+    display: flex;
+    align-items: center;
+}
+
+.push-left {
+    margin-right: 20px;
+}
+
+.push-right {
+    margin-left: 20px;
+}
+
+.pull-left {
+    float: left;
+}
+
+.pull-right {
+    float: right;
+}
+
+.nudge-down {
+    margin-top: 7px !important;
+}
+
+.nudge-right {
+    margin-left: 7px !important;
+}
+
+.nudge-left {
+    margin-right: 7px !important;
+}
+
+.nudge-up {
+    margin-bottom: 7px !important;
+}
+
+.push-down {
+    margin-top: 15px !important;
+}
+
+.push-down-more {
+    margin-top: 25px !important;
+}
+
+.nugde-up {
+    margin-bottom: 7px !important;
+}
+
+.push-up {
+    margin-bottom: 15px !important;
+}
+
+.push-up-more {
+    margin-bottom: 25px !important;
+}
+
+.padd-right {
+    padding-right: 20px;
+}
+
+.padd-left {
+    padding-left: 20px;
+}
+
+.fullwidth {
+    width: 100%;
+}
+
+.fullheight {
+    height: 100%;
+}
+
+.divider {
+    height: 1px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
+.vertical-align {
+    vertical-align: middle;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+.nomargin {
+    margin: 0px;
+}
+
+.separate {
+    display: flex;
+    justify-content: space-between;
+}
+
+.vertical-center {
+    display: flex;
+    align-items: center;
+}
+
+.divider-bottom {
+    padding-bottom: 14px;
+    margin-bottom: 12px;
+}
+
+.divider-top {
+    padding-top: 14px;
+    margin-top: 12px;
+}
+
+.divider-left {
+    padding-left: 14px;
+    margin-left: 14px;
+}
+
+.divider-right {
+    padding-right: 14px;
+    margin-right: 14px;
+}
+
+.hide-visibility {
+    visibility: hidden;
+    height: 0px;
+    padding: 0px;
+    margin: 0px;
+}
+
+/* 3. TYPOGRAPHY
+     ========================================================================== */
+
+.hint {
+    font-size: 80%;
+    line-height: normal;
+}
+
+.error {
+    font-weight: 600;
+    font-size: 85%;
+}
+
+.link {
+    color: $link-color;
+    cursor: pointer;
+}
+
+.capitalize {
+    text-transform: capitalize;
+}
+
+a {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.small-text {
+    font-size: 80%;
+}
+
+.center-text {
+    text-align: center;
+}
+
+/* 3.5 ICONS
+  ==========================================================================
+  Material Icons should be displayed as 18, 24, 36 or 48px.
+  Add the class .mat-18, .mat-24, .mat-36, .mat48 for this. (Default is .mat-24)
+  Ex: <mat-icon class="mat-36">face</mat-icon>
+  
+  Other help-classes for mat-icons;
+  .mat-light: Add on dark backgrounds (no need if the dark theme is applied).
+  .mat-inactive: Disabled icon.
+  
+  We put important and * since we might apply the class to a overlying element such as <m6-unit-icon> or <rco-card>.
+  */
+
+.mini-icon,
+.mini-icon * {
+    font-size: 14px !important;
+    width: 14px !important;
+    height: 14px !important;
+}
+
+.small-icon,
+.small-icon * {
+    font-size: 18px !important;
+    width: 18px !important;
+    height: 18px !important;
+    max-height: 18px !important; // Why is this maxheight needed?
+}
+
+.medium-icon,
+.medium-icon * {
+    font-size: 36px !important;
+    width: 36px !important;
+    height: 36px !important;
+}
+
+.large-icon,
+.large-icon * {
+    font-size: 48px !important;
+    width: 48px !important;
+    height: 48px !important;
+}
+
+.x-large-icon,
+.x-large-icon * {
+    font-size: 72px !important;
+    width: 72px !important;
+    height: 72px !important;
+}
+
+.rotate90 {
+    transform: rotate(90deg);
+}
+
+.rotate180 {
+    transform: rotate(180deg);
+}
+
+.rotate270 {
+    transform: rotate(270deg);
+}
+
+.flipX {
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
+}
+
+/* 4. ELEMENTS
+     ========================================================================== */
+
+.info-container {
+    padding: 12px 12px;
+    background-color: rgba(0, 150, 136, 0.25);
+}
+
+.warn-container {
+    background: #fbe9e7;
+    color: #d50000;
+    margin: 10px 5px 5px 0;
+    padding: 18px 20px;
+    line-height: 20px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.pointer {
+    cursor: pointer !important;
+}
+
+.badge {
+    border-radius: 9px;
+    padding: 1px 5px;
+    text-align: center;
+}
+
+.circle {
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.circle-medium {
+    width: 24px;
+    height: 24px;
+}
+
+.circle-large {
+    width: 42px;
+    height: 42px;
+}
+
+.float-bottom-right {
+    position: absolute !important;
+    right: 15px;
+    bottom: 10px;
+}
+
+.transparent {
+    opacity: 0.5;
+    -webkit-transition: all 100ms linear;
+    -moz-transition: all 100ms linear;
+    -ms-transition: all 100ms linear;
+    -o-transition: all 100ms linear;
+    transition: all 100ms linear;
+}
+
+/* 5. DIALOGS
+     ========================================================================== */
+    .mat-card-actions {
+        justify-content: flex-end;
+    }
+
+
+/* 7. FORMS
+     ========================================================================== */
+
+.flex-form {
+    display: flex;
+    flex-flow: row wrap;
+    >* {
+        margin-right: 15px;
+    }
+}
+
+.mini-input {
+    width: 40px;
+    .mat-form-field {
+        width: 40px;
+    }
+}
+
+.xsmall-input {
+    width: 50px;
+    .mat-form-field {
+        width: 50px;
+    }
+}
+
+.small-input {
+    width: 120px;
+    .mat-form-field {
+        width: 120px;
+    }
+}
+
+.medium-input {
+    width: 200px;
+    .mat-form-field {
+        width: 200px;
+    }
+}
+
+.large-input {
+    width: 340px;
+    .mat-form-field {
+        width: 340px;
+    }
+}
+
+.xlarge-input {
+    width: 420px;
+    .mat-form-field {
+        width: 420px;
+    }
+}
+
+.fullWidth-input {
+    width: 100%;
+    .mat-form-field {
+        width: 100%;
+    }
+}
+
+/* 9. CSS TRANSITIONS
+     ==========================================================================
+  */
+
+.smooth-show {
+    opacity: 1;
+    -webkit-transition: 500ms ease-in;
+    -moz-transition: 500ms ease-in;
+    transition: 500ms ease-in;
+}
+
+.smooth-hide {
+    opacity: 0.0;
+    -webkit-transition: all 500ms ease-out;
+    -moz-transition: all 500ms ease-out;
+    transition: all 500ms ease-out;
+}
+
+.smooth-enlarge {
+    font-size: 3em !important;
+    -webkit-transition: all 500ms ease-out;
+    -moz-transition: all 500ms ease-out;
+    transition: all 500ms ease-out;
 }

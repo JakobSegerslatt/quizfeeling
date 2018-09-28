@@ -1,0 +1,39 @@
+<div class="pagecontent">
+  <div>
+    <div>
+      <h2 *ngIf="roomCount > 0">Anslut till ett quiz</h2>
+      <div fxLayout="row wrap" fxLayoutGap="15px">
+        <mat-card *ngFor="let room of rooms$ | async" class="push-up">
+          <form>
+            <mat-card-title>{{ room.name }}</mat-card-title>
+            <mat-form-field>
+              <input matInput placeholder="Lösenord" type="text" #password>
+            </mat-form-field>
+            <mat-card-actions>
+              <button mat-raised-button color="primary" (click)="join(room, password.value)">ANSLUT</button>
+            </mat-card-actions>
+          </form>
+        </mat-card>
+      </div>
+    </div>
+    <mat-divider class="push-down-more"></mat-divider>
+
+    <h2 class="push-down-more">Eller skapa ett nytt</h2>
+    <mat-card [formGroup]="createForm">
+      <div>
+        Ange ett namn och lösenord för att skapa ett nytt quiz
+      </div>
+      <div fxLayout="row wrap" fxLayoutGap="15px" class="push-down">
+        <mat-form-field>
+          <input matInput placeholder="Quiznamn" type="text" formControlName="name">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Lösenord" type="text" formControlName="password">
+        </mat-form-field>
+      </div>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" type="submit"  (click)="create()" [disabled]="createForm.invalid">SKAPA</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

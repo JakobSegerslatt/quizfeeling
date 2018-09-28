@@ -1,13 +1,11 @@
-import { Team } from './../team.model';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
-import { AngularFirestore } from 'angularfire2/firestore';
-import { debounceTime } from 'rxjs/operators';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-host',
   templateUrl: './host.component.html',
-  styleUrls: ['./host.component.css']
+  styleUrls: ['./host.component.scss']
 })
 export class HostComponent implements OnInit, OnDestroy {
   sub: Subscription;

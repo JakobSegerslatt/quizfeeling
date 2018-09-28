@@ -1,32 +1,24 @@
-<mat-sidenav-container class="sidenav-container">
-    <mat-sidenav
-      #drawer
-      class="sidenav"
-      fixedInViewport="true"
-      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-      [mode]="(isHandset$ | async) ? 'over' : 'side'"
-      [opened]="!(isHandset$ | async)">
-      <mat-toolbar color="primary">Meny</mat-toolbar>
-      <mat-nav-list>
-        <a mat-list-item routerLink="home">Intro</a>
-        <a mat-list-item routerLink="host">Host</a>
-      </mat-nav-list>
-    </mat-sidenav>
-    <mat-sidenav-content class="full-height">
-      <mat-toolbar color="primary">
-        <button
-          type="button"
-          aria-label="Toggle sidenav"
-          mat-icon-button
-          (click)="drawer.toggle()"
-          *ngIf="isHandset$ | async">
-          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-        </button>
-        <span>Sa någon quiz??</span>
-      </mat-toolbar>
-      
-      <router-outlet></router-outlet>
-  
-    </mat-sidenav-content>
-  </mat-sidenav-container>
-  
+<mat-toolbar color="primary" class="mat-typography">
+  <span fxLayout fxLayoutAlign=" center" fxLayoutGap="15px">
+    <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+      <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+    </button>
+    <img class="logo pointer" src="./assets/quiz_logo.png" alt="" height="36px" routerLink="home">
+    <span class="pointer" routerLink="home">
+      FEELING QUIZY
+    </span>
+  </span>
+</mat-toolbar>
+<mat-sidenav-container class="sidenav-container mat-typography">
+  <mat-sidenav #drawer class="sidenav" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" mode="side">
+    <mat-nav-list>
+      <a mat-list-item routerLink="home">Intro</a>
+      <a mat-list-item routerLink="host">Host</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content class="full-height">
+
+    <router-outlet class="full-height"></router-outlet>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>

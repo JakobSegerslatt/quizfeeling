@@ -1,9 +1,0 @@
-
-    
-    <mat-tab-group>
-      <mat-tab *ngFor="let t of teams$ | async" [label]="t.name">
-        <div class="team-content full-height" fxLayout="row" fxLayoutAlign="center">
-          <button [disabled]="disable" class="raise-hand-button" mode="button" mat-raised-button color="primary" (click)="raiseHand(t)">JAG KAN!</button>
-        </div>
-      </mat-tab>
-    </mat-tab-group>
