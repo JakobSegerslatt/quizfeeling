@@ -105,6 +105,16 @@ export const MOVIESOUNDS: SoundSource[] = [
         path: 'http://www.moviewavs.com/0053148414/MP3S/Movies/Top_Gun/ego_cash.mp3',
         quote: `Son, your ego is writing checks your body can't cash.`,
     },
+    {
+    name: 'Wizard of Oz',
+    path: 'http://www.moviewavs.com/0053148414/MP3S/Movies/Wizard_Of_Oz/oz6.mp3',
+    quote: `Toto...I've a feeling we're not in Kansas anymore.`,
+    },
+    {
+    name: 'Bruce Almighty',
+    path: 'http://www.moviewavs.com/0053148414/MP3S/Movies/Bruce_Almighty/beautiful.mp3',
+    quote: `B-E-A-utiful`,
+    },
 ];
 
 export interface SoundSource {
