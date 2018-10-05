@@ -2,6 +2,10 @@
 
 @import 'assets/css/variables';
 @import 'assets/css/material_theme.scss';
+html {
+    height: calc(100% - 64px); // 64px is the height of the mat-toolbar
+}
+
 body,
 app-root {
     height: 100%;

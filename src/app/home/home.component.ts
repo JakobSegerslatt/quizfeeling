@@ -29,11 +29,16 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.rooms$ = this.db.collection<Room>('rooms').snapshotChanges()
-      .pipe(map(rooms => rooms.map(r => {
-        const data = r.payload.doc.data() as Room;
-        const id = r.payload.doc.id;
-        return { id, ...data };
-      })));
+      .pipe(
+        map(rooms => rooms.map(r => {
+          const data = r.payload.doc.data() as Room;
+          const id = r.payload.doc.id;
+          return { id, ...data };
+        })),
+        tap(rooms => {
+          this.roomCount = rooms.length;
+        })
+      );
 
     this.createForm = this.fb.group({
       name: ['', [Validators.minLength(2), Validators.required]],

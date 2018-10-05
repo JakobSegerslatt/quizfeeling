@@ -1,7 +1,7 @@
 <div class="pagecontent">
   <div>
     <div>
-      <h2 *ngIf="roomCount > 0">Anslut till ett quiz</h2>
+      <h1 *ngIf="roomCount > 0">Anslut till ett quiz</h1>
       <div fxLayout="row wrap" fxLayoutGap="15px">
         <mat-card *ngFor="let room of rooms$ | async" class="push-up">
           <form>
@@ -18,7 +18,7 @@
     </div>
     <mat-divider class="push-down-more"></mat-divider>
 
-    <h2 class="push-down-more">Eller skapa ett nytt</h2>
+    <h1 class="push-down-more">Eller skapa ett nytt</h1>
     <mat-card [formGroup]="createForm">
       <div>
         Ange ett namn och lösenord för att skapa ett nytt quiz
