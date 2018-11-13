@@ -12,7 +12,7 @@ export const MOVIESOUNDS: SoundSource[] = [
     },
     {
         name: 'Blades of Glory',
-        path: 'sounds/provocative.mp3',
+        path: 'provocative.mp3',
         quote: 'No one know what it means, but it´s provocative.'
     },
     {

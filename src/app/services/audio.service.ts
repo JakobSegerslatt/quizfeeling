@@ -10,7 +10,7 @@ export class AudioService {
   constructor() { }
 
   public play(sound: SoundSource) {
-    const audio = new Audio(sound.path);
+    const audio = new Audio(`assets/sounds/${sound.path}`);
     audio.play();
 
     let playLimit = sound.seconds || 5; // Don't allow sounds to play for more than 5 seconds

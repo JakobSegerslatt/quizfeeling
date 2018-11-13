@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import 'assets/css/variables';
+@import 'assets/css/_quizfeeling_theme.scss';
 @import 'assets/css/material_theme.scss';
 html {
     height: calc(100% - 64px); // 64px is the height of the mat-toolbar
@@ -359,13 +360,21 @@ a {
 
 /* 5. DIALOGS
      ========================================================================== */
-    .mat-card-actions {
-        justify-content: flex-end;
-    }
 
+.mat-card-actions {
+    justify-content: flex-end;
+}
+
+.dialog-title-background {
+    margin: -24px -24px 0 -24px;
+    padding: 12px 24px 8px 24px;
+    .mat-dialog-title {
+        margin-bottom: 0;
+    }
+}
 
 /* 7. FORMS
-     ========================================================================== */
+        ========================================================================== */
 
 .flex-form {
     display: flex;

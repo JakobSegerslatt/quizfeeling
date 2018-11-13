@@ -1,9 +1,13 @@
 <div [formGroup]="form">
-  <div mat-dialog-title>RADERA QUIZRUM</div>
+  <div class="warn-background dialog-title-background">
+    <div mat-dialog-title class="light-text">RADERA QUIZRUM</div>
+  </div>
   <div mat-dialog-content>
 
-    <div class="push-up">
-      Skriv in lösenordet för att radera.
+    <div class="push-up push-down">
+      <em>
+        Skriv in lösenordet för att radera.
+      </em>
     </div>
     <mat-form-field>
       <input type="text" matInput placeholder="Lösenord" formControlName="password">
@@ -12,7 +16,6 @@
   </div>
   <div mat-dialog-actions>
     <button mat-button mat-dialog-close>STÄNG</button>
-    <button mat-raised-button color="warn" [mat-dialog-close]="true" 
-    [disabled]="form.invalid || form.value.password !== room.password">RADERA</button>
+    <button mat-raised-button color="warn" [mat-dialog-close]="true" [disabled]="form.invalid || form.value.password !== room.password">RADERA</button>
   </div>
 </div>

@@ -14,8 +14,10 @@ $dark-theme: mat-dark-theme($primary, $accent, $warn);
  */
 
 @include angular-material-theme($light-theme);
+@include quizfeeling-theme($light-theme);
 .dark-theme {
     @include angular-material-theme($dark-theme);
+    @include quizfeeling-theme($dark-theme);
 }
 
 body {

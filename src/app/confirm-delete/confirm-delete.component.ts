@@ -17,7 +17,5 @@ export class ConfirmDeleteComponent implements OnInit {
     this.form = this.fb.group({
       password: ['', [Validators.required]]
     });
-
-    console.log(this.room);
   }
 }

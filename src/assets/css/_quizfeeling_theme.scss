@@ -1,0 +1,31 @@
+@import '~@angular/material/theming';
+@mixin quizfeeling-theme($theme) {
+    // Extract the palettes you need from the theme definition.
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent);
+    $warn: map-get($theme, warn);
+    .light-text {
+      color: white;
+    }
+    .dark-text {
+      color: black;
+    }
+    .primary-background {
+        background-color: mat-color($primary);
+    }
+    .accent-background {
+        background-color: mat-color($accent);
+    }
+    .warn-background {
+        background-color: mat-color($warn);
+    }
+    .primary {
+        color: mat-color($primary);
+    }
+    .accent {
+        color: mat-color($accent);
+    }
+    .warn {
+        color: mat-color($warn);
+    }
+}
