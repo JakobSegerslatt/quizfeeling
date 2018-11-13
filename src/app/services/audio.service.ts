@@ -9,7 +9,6 @@ export class AudioService {
 
   constructor() { }
 
-
   public play(sound: SoundSource) {
     const audio = new Audio(sound.path);
     audio.play();

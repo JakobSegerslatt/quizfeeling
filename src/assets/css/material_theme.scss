@@ -19,5 +19,8 @@ $dark-theme: mat-dark-theme($primary, $accent, $warn);
 }
 
 body {
-  font-family: 'Press Start 2P'
+  font-family: 'Roboto', 'Helvetica', Verdana, sans-serif;
+    .artsy {
+      font-family: 'Press Start 2P' !important;
+    }
 }

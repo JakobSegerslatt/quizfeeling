@@ -15,10 +15,6 @@ body {
     margin: 0;
 }
 
-.full-height {
-    height: 100%;
-}
-
 .pagecontent {
     display: flex;
     justify-content: center;
@@ -183,6 +179,11 @@ body {
 /* 3. TYPOGRAPHY
      ========================================================================== */
 
+.mat-card-title {
+    min-height: 28px;
+    margin-top: 14px !important;
+}
+
 .hint {
     font-size: 80%;
     line-height: normal;
@@ -196,6 +197,10 @@ body {
 .link {
     color: $link-color;
     cursor: pointer;
+}
+
+.center-text {
+    text-align: center;
 }
 
 .capitalize {
@@ -213,6 +218,14 @@ a {
 
 .center-text {
     text-align: center;
+}
+
+.dark-text {
+    color: black !important;
+}
+
+.mat-card-title {
+    font-size: 1.5em;
 }
 
 /* 3.5 ICONS

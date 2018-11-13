@@ -1,7 +1,7 @@
 {
-  "name": "quizfeeling",
-  "short_name": "quizfeeling",
-  "theme_color": "#1976d2",
+  "name": "QuizFeeling",
+  "short_name": "QuizFeeling",
+  "theme_color": "#FF3D00",
   "background_color": "#fafafa",
   "display": "standalone",
   "scope": "/",

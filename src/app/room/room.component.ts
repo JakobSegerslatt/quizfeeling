@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { first, tap } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Room } from '../models/room';
@@ -9,6 +9,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { TeamFormComponent } from '../team-form/team-form.component';
 import { AudioService } from '../services/audio.service';
+import { ConfirmDeleteComponent } from '../confirm-delete/confirm-delete.component';
 
 @Component({
   selector: 'app-room',
@@ -18,6 +19,7 @@ import { AudioService } from '../services/audio.service';
 export class RoomComponent implements OnInit {
   roomId: string;
   room$: Observable<Room>;
+  room: Room;
 
   teams$: Observable<Team[]>;
   teamCount: number;
@@ -27,6 +29,7 @@ export class RoomComponent implements OnInit {
     private route: ActivatedRoute,
     private audioService: AudioService,
     private toast: MatSnackBar,
+    private router: Router,
     private dialog: MatDialog,
     private db: AngularFirestore) { }
 
@@ -37,7 +40,9 @@ export class RoomComponent implements OnInit {
         // Get objtype
         this.roomId = params['id'];
 
-        this.room$ = this.db.collection('rooms').doc<Room>(this.roomId).valueChanges();
+        this.room$ = this.db.collection('rooms').doc<Room>(this.roomId)
+          .valueChanges()
+          .pipe(tap(r => this.room = r));
 
         this.teams$ = this.db.collection<Team>('teams', ref => ref.where('roomId', '==', this.roomId))
           .valueChanges()
@@ -67,5 +72,19 @@ export class RoomComponent implements OnInit {
           this.toast.open(`Lag ${team.name} har skapats. Lycka till!`);
         }
       });
+  }
+
+  public deleteRoom(): void {
+    const instance = this.dialog.open(ConfirmDeleteComponent);
+    instance.componentInstance.room = this.room;
+
+    instance.afterClosed().subscribe(del => {
+      if (del) {
+        this.db.collection<Room>('rooms')
+          .doc(this.roomId)
+          .delete()
+          .then(_ => this.router.navigateByUrl('home'));
+      }
+    })
   }
 }

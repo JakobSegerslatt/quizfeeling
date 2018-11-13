@@ -1,9 +1,23 @@
-<p>
-  Latest team:
-</p>
+<div class="fullheight pagecontent" fxLayout fxLayoutAlign="center">
+  <mat-card>
+    <mat-card-title>Senaste lag</mat-card-title>
 
-<h1>192.168.86.30:4200/home</h1>
+    <mat-card-content>
 
-<h1>wifi</h1>
-<h1>rosenhall</h1>
-<h1>lösen: </h1>
+      <div class="push-down-more" *ngIf="(team$ | async) as team">
+
+        <ng-container *ngIf="team.name">
+
+          <h1 class="artsy" class="center-text">{{ team.name }}</h1>
+          <em class="center-text">"{{ team.sound?.quote }}"</em>
+
+        </ng-container>
+
+        <div *ngIf="!team.name">
+          Inget lag har hunnit svara än!
+        </div>
+
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

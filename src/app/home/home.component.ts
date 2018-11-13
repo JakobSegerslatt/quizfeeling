@@ -49,6 +49,7 @@ export class HomeComponent implements OnInit {
 
   public create(): void {
     this.db.collection<Room>('rooms').add(this.createForm.value);
+    this.createForm.reset();
   }
 
   public join(room: Room, password: string): void {

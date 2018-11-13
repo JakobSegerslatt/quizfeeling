@@ -1,24 +1,24 @@
 <mat-toolbar color="primary" class="mat-typography">
   <span fxLayout fxLayoutAlign=" center" fxLayoutGap="15px">
-    <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+    <!-- <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
       <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-    </button>
+    </button> -->
     <img class="logo pointer" src="./assets/quiz_logo.png" alt="" height="36px" routerLink="home">
-    <span class="pointer" routerLink="home">
+    <span class="pointer artsy" routerLink="home">
       FEELING QUIZY
     </span>
   </span>
 </mat-toolbar>
 <mat-sidenav-container class="sidenav-container mat-typography">
   <mat-sidenav #drawer class="sidenav" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" mode="side">
-    <mat-nav-list>
-      <a mat-list-item routerLink="home">Intro</a>
-      <a mat-list-item routerLink="host">Host</a>
+    <mat-nav-list fxLayout="column" class="fullheight" fxLayoutAlign="space-between">
+      <a mat-list-item routerLink="home">Välj ett quizrum</a>
+      <a mat-list-item routerLink="about">Om appen</a>
     </mat-nav-list>
   </mat-sidenav>
-  <mat-sidenav-content class="full-height">
+  <mat-sidenav-content class="fullheight">
 
-    <router-outlet class="full-height"></router-outlet>
+    <router-outlet class="fullheight"></router-outlet>
 
   </mat-sidenav-content>
 </mat-sidenav-container>

@@ -1,7 +1,9 @@
-<div class="full-height pagecontent" fxLayout fxLayoutAlign="center">
-  <div>
-    <button [disabled]="disableButton" class="raise-hand-button" mode="button" mat-raised-button color="primary"
-      (click)="raiseHand()">JAG
-      KAN!</button>
+<div class="fullheight pagecontent" fxLayout fxLayoutAlign="center">
+  <div fxLayout fxLayoutAlign="center">
+    <span>
+      <button [disabled]="disableButton" matTooltip="Svara på frågan"
+       class="raise-hand-btn" mode="button" mat-fab 
+      color="primary" (click)="raiseHand()"><mat-icon>whatshot</mat-icon></button>
+    </span>
   </div>
 </div>

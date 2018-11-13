@@ -1,6 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
+import { map, skip, tap } from 'rxjs/operators';
+import { Team } from '../models/team';
+import { AudioService } from '../services/audio.service';
 
 @Component({
   selector: 'app-host',
@@ -8,25 +11,28 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./host.component.scss']
 })
 export class HostComponent implements OnInit, OnDestroy {
-  sub: Subscription;
-
+  team$: Observable<Team>;
 
   constructor(
     private db: AngularFirestore,
+    private audioService: AudioService
   ) { }
 
   ngOnInit() {
-   this.db.collection<any>('latestPlayed').doc<any>('team')
+    let iterations = 0;
+    this.team$ = this.db.collection<Team>('latestPlayed').doc<Team>('team')
       .valueChanges()
-      .subscribe(t => {
-        let path = '';
-        if (t.team && t.team.musicPath) {
-          path = t.team.musicPath;
-        }
-        const audio = new Audio(path);
-        t.audio = audio;
-        t.audio.play();
-      });
+      .pipe(
+        map(team => {
+          // Don't play the sound on load
+          if (iterations > 0) {
+            this.audioService.play(team.sound);
+            return team;
+          }
+          return {} as Team;
+        }),
+        tap(_ => iterations++)
+      );
   }
 
   ngOnDestroy() {

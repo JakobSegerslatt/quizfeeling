@@ -28,11 +28,9 @@ export class TeamComponent implements OnInit {
     // Update latest played audio in the db
     this.db.collection('latestPlayed').doc('team').update({
       ...this.team,
-      updated: Date.now()
-    }
-    )
-      .then(value => {
-        console.log(value);
-      });
+      updated: new Date()
+    }).then(value => {
+      console.log(value);
+    });
   }
 }

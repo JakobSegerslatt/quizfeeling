@@ -1,24 +1,22 @@
 <div class="pagecontent">
   <div>
     <div>
-      <h1 *ngIf="roomCount > 0">Anslut till ett quiz</h1>
+      <h2 *ngIf="roomCount > 0">Anslut till ett quiz</h2>
       <div fxLayout="row wrap" fxLayoutGap="15px">
-        <mat-card *ngFor="let room of rooms$ | async" class="push-up">
-          <form>
-            <mat-card-title>{{ room.name }}</mat-card-title>
-            <mat-form-field>
-              <input matInput placeholder="Lösenord" type="text" #password>
+        <mat-card *ngFor="let room of rooms$ | async" class="push-up room-card pointer" matRipple>
+          <form (ngSubmit)="join(room, room.inputPassword)">
+            <mat-card-title class="artsy" (click)="room.show = !room.show">{{ room.name }}</mat-card-title>
+            <mat-form-field *ngIf="room.show">
+              <input matInput placeholder="Lösenord" type="text" [ngModelOptions]="{standalone: true}"
+               [(ngModel)]="room.inputPassword">
             </mat-form-field>
-            <mat-card-actions>
-              <button mat-raised-button color="primary" (click)="join(room, password.value)">ANSLUT</button>
-            </mat-card-actions>
           </form>
         </mat-card>
       </div>
     </div>
     <mat-divider class="push-down-more"></mat-divider>
 
-    <h1 class="push-down-more">Eller skapa ett nytt</h1>
+    <h2 class="push-down-more">Skapa ett nytt quiz</h2>
     <mat-card [formGroup]="createForm">
       <div>
         Ange ett namn och lösenord för att skapa ett nytt quiz
