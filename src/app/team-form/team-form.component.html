@@ -1,8 +1,10 @@
 <div [formGroup]="form">
-  <div mat-dialog-title>Skapa ett nytt lag</div>
+  <div class="primary-background dialog-title-background">
+    <div mat-dialog-title class="light-text">NYTT LAG</div>
+  </div>
   <div mat-dialog-content>
 
-    <div class="flex-form">
+    <div class="flex-form nudge-down">
 
       <mat-form-field>
         <input type="text" matInput placeholder="Lagnamn" formControlName="name">
@@ -16,7 +18,7 @@
       <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
         <mat-option *ngFor="let sound of filteredSounds | async" [value]="sound" class="soundsource-option">
           <mat-icon class="medium-icon" (click)="$event.stopPropagation(); audioService.play(sound)">play_circle_outline</mat-icon>
-          <span>{{ sound.name }}</span> | 
+          <span>{{ sound.name }}</span> |
           <small>{{ sound.quote }}</small>
         </mat-option>
       </mat-autocomplete>

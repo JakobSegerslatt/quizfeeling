@@ -1,6 +1,13 @@
 <div class="pagecontent">
-  <div>
+  <div style="padding: 5px">
     <div>
+      <div *ngIf="loading" fxLayout="column" fxLayoutAlign="center center">
+        <mat-spinner></mat-spinner>
+        <h3>
+          Laddar quizrum...
+        </h3>
+      </div>
+      <h2 *ngIf="roomCount === 0 && !loading">Det finns inga aktiva quiz just nu</h2>
       <h2 *ngIf="roomCount > 0">Anslut till ett quiz</h2>
       <div fxLayout="row wrap" fxLayoutGap="15px">
         <mat-card *ngFor="let room of rooms$ | async" class="push-up room-card pointer" matRipple>
@@ -8,7 +15,7 @@
             <mat-card-title class="artsy" (click)="room.show = !room.show">{{ room.name }}</mat-card-title>
             <mat-form-field *ngIf="room.show">
               <input matInput placeholder="Lösenord" type="text" [ngModelOptions]="{standalone: true}"
-               [(ngModel)]="room.inputPassword">
+               [(ngModel)]="room.inputPassword" (click)="$event.stopPropagation()">
             </mat-form-field>
           </form>
         </mat-card>

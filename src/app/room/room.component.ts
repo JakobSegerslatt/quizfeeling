@@ -69,22 +69,11 @@ export class RoomComponent implements OnInit {
             ...team
           });
 
-          this.toast.open(`Lag ${team.name} har skapats. Lycka till!`);
+          const snack = this.toast.open(`Lag ${team.name} har skapats. Lycka till!`);
+          setTimeout(_ => {
+            snack.dismiss();
+          }, 3000)
         }
       });
-  }
-
-  public deleteRoom(): void {
-    const instance = this.dialog.open(ConfirmDeleteComponent);
-    instance.componentInstance.room = this.room;
-
-    instance.afterClosed().subscribe(del => {
-      if (del) {
-        this.db.collection<Room>('rooms')
-          .doc(this.roomId)
-          .delete()
-          .then(_ => this.router.navigateByUrl('home'));
-      }
-    })
   }
 }

@@ -19,5 +19,11 @@
 
       </div>
     </mat-card-content>
+    <mat-card-actions>
+      <button color="warn" [disabled]="!room" mat-raised-button (click)="deleteRoom()">
+        RADERA QUIZ
+      </button>
+      <div class="error nudge-down">Quizet raderas automatisk efter en viss tid</div>
+    </mat-card-actions>
   </mat-card>
 </div>

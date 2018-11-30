@@ -6,6 +6,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { tap, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
+import { MOVIESOUNDS } from '../models/sound-list';
 
 
 @Component({
@@ -19,6 +20,8 @@ export class HomeComponent implements OnInit {
   roomCount = 0;
 
   createForm: FormGroup;
+
+  public loading: boolean = true;
 
   constructor(
     public db: AngularFirestore,
@@ -37,6 +40,7 @@ export class HomeComponent implements OnInit {
         })),
         tap(rooms => {
           this.roomCount = rooms.length;
+          this.loading = false;
         })
       );
 

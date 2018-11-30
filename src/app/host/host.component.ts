@@ -1,9 +1,13 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Subscription, Observable } from 'rxjs';
 import { map, skip, tap } from 'rxjs/operators';
 import { Team } from '../models/team';
 import { AudioService } from '../services/audio.service';
+import { MatDialog } from '@angular/material';
+import { ConfirmDeleteComponent } from '../confirm-delete/confirm-delete.component';
+import { Room } from '../models/room';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-host',
@@ -11,11 +15,16 @@ import { AudioService } from '../services/audio.service';
   styleUrls: ['./host.component.scss']
 })
 export class HostComponent implements OnInit, OnDestroy {
+  @Input() listen: boolean = true;
+  @Input() room: Room;
+  @Input() roomId: string;
+  
   team$: Observable<Team>;
-
   constructor(
     private db: AngularFirestore,
-    private audioService: AudioService
+    private dialog: MatDialog,
+    private audioService: AudioService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -24,9 +33,11 @@ export class HostComponent implements OnInit, OnDestroy {
       .valueChanges()
       .pipe(
         map(team => {
-          // Don't play the sound on load
+          // Skip the first load
           if (iterations > 0) {
-            this.audioService.play(team.sound);
+            if (this.listen) {
+              this.audioService.play(team.sound);
+            }
             return team;
           }
           return {} as Team;
@@ -36,6 +47,20 @@ export class HostComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+  }
+
+  public deleteRoom(): void {
+    const instance = this.dialog.open(ConfirmDeleteComponent);
+    instance.componentInstance.room = this.room;
+
+    instance.afterClosed().subscribe(del => {
+      if (del) {
+        this.db.collection<Room>('rooms')
+          .doc(this.roomId)
+          .delete()
+          .then(_ => this.router.navigateByUrl('home'));
+      }
+    })
   }
 
 }

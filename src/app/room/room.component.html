@@ -3,8 +3,8 @@
   <mat-tab *ngFor="let t of teams$ | async" [label]="t.name">
     <app-team [team]="t" [disableButton]="disableButton"></app-team>
   </mat-tab>
-  <mat-tab *ngIf="teamCount > 0" label="Quizmaster">
-    <app-host></app-host>
+  <mat-tab *ngIf="teamCount > 0" label="Quizmaster" #quizMasterTab>
+    <app-host [listen]="quizMasterTab.active" [room]="room" [roomId]="roomId"></app-host>
   </mat-tab>
 </mat-tab-group>
 <div *ngIf="teamCount === 0" class="pagecontent">
@@ -14,9 +14,6 @@
   </mat-card>
 </div>
 <div class="fab-section" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign=" center">
-  <button color="warn" [disabled]="!room" mat-mini-fab (click)="deleteRoom()">
-    <mat-icon class="dark-text">delete</mat-icon>
-  </button>
   <button mat-fab (click)="createTeam()">
     <mat-icon>add</mat-icon>
   </button>

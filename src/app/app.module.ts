@@ -29,6 +29,7 @@ import {
   MatAutocompleteModule,
   MatTooltipModule,
   MatRippleModule,
+  MatProgressSpinnerModule,
 } from '@angular/material';
 
 import { environment } from '../environments/environment';
@@ -80,6 +81,7 @@ const appRoutes: Routes = [
     MatButtonModule,
     MatIconModule,
     MatListModule,
+    MatProgressSpinnerModule,
     MatSidenavModule,
     MatSnackBarModule,
     MatDialogModule,
