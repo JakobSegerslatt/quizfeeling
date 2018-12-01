@@ -1,10 +1,10 @@
 <div *ngIf="room$ | async"></div>
 <mat-tab-group mat-align-tabs="center">
-  <mat-tab *ngFor="let t of teams$ | async" [label]="t.name">
+  <mat-tab *ngFor="let t of teams$ | async;" [label]="t.name">
     <app-team [team]="t" [disableButton]="disableButton"></app-team>
   </mat-tab>
   <mat-tab *ngIf="teamCount > 0" label="Quizmaster" #quizMasterTab>
-    <app-host [listen]="quizMasterTab.active" [room]="room" [roomId]="roomId"></app-host>
+    <app-host [listen]="quizMasterTab.isActive" [room]="room" [roomId]="roomId"></app-host>
   </mat-tab>
 </mat-tab-group>
 <div *ngIf="teamCount === 0" class="pagecontent">
