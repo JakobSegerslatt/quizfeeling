@@ -44,13 +44,19 @@ export class RoomComponent implements OnInit {
           .valueChanges()
           .pipe(tap(r => this.room = r));
 
-        this.teams$ = this.db.collection<Team>('teams', ref => ref.where('roomId', '==', this.roomId))
+        this.teams$ = this.db.collection<Team>('teams', ref =>
+          ref.where('roomId', '==', this.roomId))
           .valueChanges()
-          .pipe(tap(x => this.teamCount = x.length));
+          .pipe(tap(teams => this.teamCount = teams.length));
       });
 
-    // We subscribe in this component so that not each team component needs to listen for the same event
-    this.db.collection<any>('latestPlayed').doc<any>('team')
+    /**
+     * We subscribe in this component so that not each team
+     * component needs to listen for the same event
+     */
+    this.db
+      .collection('rooms')
+      .doc<Room>(this.roomId)
       .valueChanges()
       .subscribe(t => {
         this.disableButton = true;
@@ -72,7 +78,7 @@ export class RoomComponent implements OnInit {
           const snack = this.toast.open(`Lag ${team.name} har skapats. Lycka till!`);
           setTimeout(_ => {
             snack.dismiss();
-          }, 3000)
+          }, 3000);
         }
       });
   }

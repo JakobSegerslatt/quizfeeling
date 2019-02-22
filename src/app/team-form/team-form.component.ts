@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { AudioService } from '../services/audio.service';
 import { contains } from '../hepler-functions';
+import { BodyEmojis, FaceEmojis } from './emojis';
 
 @Component({
   selector: 'app-team-form',
@@ -17,6 +18,8 @@ export class TeamFormComponent implements OnInit {
 
   soundSources = [...MOVIESOUNDS];
   filteredSounds: Observable<SoundSource[]>;
+
+  members: string[];
 
   constructor(
     private fb: FormBuilder,
@@ -34,6 +37,28 @@ export class TeamFormComponent implements OnInit {
         startWith(''),
         map(val => val ? this.filterSounds(val) : this.soundSources.slice())
       );
+
+    this.members = this.getRandomEmojis(3, 'people');
+  }
+
+  getRandomEmojis(count: number, type: 'people' | 'faces'): string[] {
+    const emojisToReturn: string[] = [];
+
+    /** Determine which source array to use */
+    let emojiList: string[] = [];
+    if (type === 'people') {
+      emojiList = BodyEmojis;
+    } else if (type === 'faces') {
+      emojiList = FaceEmojis;
+    }
+
+    // Push in a random emoji until we hit the count
+    for (let index = 0; index < count; index++) {
+      const randomEmoji = emojiList[Math.floor(Math.random() * emojiList.length)];
+      emojisToReturn.push(randomEmoji);
+    }
+
+    return emojisToReturn;
   }
 
   public displayFn(s?: SoundSource): string | SoundSource {

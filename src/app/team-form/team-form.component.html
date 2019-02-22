@@ -1,23 +1,29 @@
 <div [formGroup]="form">
-  <div class="primary-background dialog-title-background">
+  <!-- <div class="primary-background dialog-title-background">
     <div mat-dialog-title class="light-text">NYTT LAG</div>
-  </div>
+  </div> -->
+  <h2 class="dialog-header artsy center-text">Nytt lag</h2>
   <div mat-dialog-content>
 
-    <div class="flex-form nudge-down">
+    <div class="team-icons" fxLayout fxLayoutAlign="space-around">
+      <span *ngFor="let member of members">{{ member }}</span>
+    </div>
+    <div class="flex-form push-down">
 
-      <mat-form-field>
-        <input type="text" matInput placeholder="Lagnamn" formControlName="name">
+      <mat-form-field appearance="outline">
+        <mat-label>Lagnamn</mat-label>
+        <input type="text" matInput formControlName="name">
       </mat-form-field>
-
 
     </div>
 
-    <mat-form-field class="sound-field">
-      <input matInput placeholder="Ljud" [matAutocomplete]="auto" formControlName="sound">
+    <mat-form-field appearance="outline" class="sound-field">
+      <mat-label>Ljud</mat-label>
+      <input matInput [matAutocomplete]="auto" formControlName="sound">
       <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
         <mat-option *ngFor="let sound of filteredSounds | async" [value]="sound" class="soundsource-option">
-          <mat-icon class="medium-icon" (click)="$event.stopPropagation(); audioService.play(sound)">play_circle_outline</mat-icon>
+          <mat-icon class="medium-icon" (click)="$event.stopPropagation(); audioService.play(sound)">play_circle_outline
+          </mat-icon>
           <span>{{ sound.name }}</span> |
           <small>{{ sound.quote }}</small>
         </mat-option>

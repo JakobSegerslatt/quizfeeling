@@ -15,10 +15,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./host.component.scss']
 })
 export class HostComponent implements OnInit, OnDestroy {
-  @Input() listen: boolean = true;
+  @Input() listen = true;
   @Input() room: Room;
   @Input() roomId: string;
-  
+
   team$: Observable<Team>;
   constructor(
     private db: AngularFirestore,
@@ -29,10 +29,13 @@ export class HostComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     let iterations = 0;
-    this.team$ = this.db.collection<Team>('latestPlayed').doc<Team>('team')
+    this.team$ = this.db
+      .collection('rooms')
+      .doc<Room>(this.roomId)
       .valueChanges()
       .pipe(
-        map(team => {
+        map(room => {
+          const team = room.latestPlayed;
           // Skip the first load
           if (iterations > 0) {
             if (this.listen) {
@@ -60,7 +63,7 @@ export class HostComponent implements OnInit, OnDestroy {
           .delete()
           .then(_ => this.router.navigateByUrl('home'));
       }
-    })
+    });
   }
 
 }

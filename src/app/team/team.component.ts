@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Team } from '../models/team';
 import { AudioService } from '../services/audio.service';
+import { Room } from '../models/room';
 
 @Component({
   selector: 'app-team',
@@ -10,6 +11,7 @@ import { AudioService } from '../services/audio.service';
 })
 export class TeamComponent implements OnInit {
   @Input() team: Team;
+  @Input() roomId: string;
   @Input() disableButton: boolean;
 
   constructor(
@@ -26,11 +28,17 @@ export class TeamComponent implements OnInit {
     this.audioService.play(this.team.sound);
 
     // Update latest played audio in the db
-    this.db.collection('latestPlayed').doc('team').update({
-      ...this.team,
-      updated: new Date()
-    }).then(value => {
-      console.log(value);
-    });
+
+    this.db
+      .collection('rooms')
+      .doc<Room>(this.roomId)
+      .update({
+        latestPlayed: {
+          ...this.team,
+          updated: new Date()
+        }
+      }).then(value => {
+        console.log(value);
+      });
   }
 }

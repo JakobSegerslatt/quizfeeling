@@ -218,10 +218,6 @@ a {
     font-size: 80%;
 }
 
-.center-text {
-    text-align: center;
-}
-
 .dark-text {
     color: black !important;
 }
@@ -376,6 +372,12 @@ a {
 
 /* 7. FORMS
         ========================================================================== */
+
+.mat-form-field {
+    width: 100%;
+    max-width: 300px;
+    font-size: 1.1rem;
+}
 
 .flex-form {
     display: flex;

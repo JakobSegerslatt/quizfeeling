@@ -9,13 +9,15 @@
         Skriv in lösenordet för att radera.
       </em>
     </div>
-    <mat-form-field>
-      <input type="text" matInput placeholder="Lösenord" formControlName="password">
+    <mat-form-field appearance="outline">
+      <mat-label>Lösenord</mat-label>
+      <input type="text" matInput formControlName="password">
     </mat-form-field>
 
   </div>
   <div mat-dialog-actions>
     <button mat-button mat-dialog-close>STÄNG</button>
-    <button mat-raised-button color="warn" [mat-dialog-close]="true" [disabled]="form.invalid || form.value.password !== room.password">RADERA</button>
+    <button mat-raised-button color="warn" [mat-dialog-close]="true"
+      [disabled]="form.invalid || form.value.password !== room.password">RADERA</button>
   </div>
 </div>
