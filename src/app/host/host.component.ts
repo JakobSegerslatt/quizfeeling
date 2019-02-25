@@ -1,13 +1,13 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Subscription, Observable } from 'rxjs';
-import { map, skip, tap } from 'rxjs/operators';
+import { map, skip, tap, first } from 'rxjs/operators';
 import { Team } from '../models/team';
 import { AudioService } from '../services/audio.service';
 import { MatDialog } from '@angular/material';
 import { ConfirmDeleteComponent } from '../confirm-delete/confirm-delete.component';
 import { Room } from '../models/room';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-host',
@@ -15,38 +15,27 @@ import { Router } from '@angular/router';
   styleUrls: ['./host.component.scss']
 })
 export class HostComponent implements OnInit, OnDestroy {
-  @Input() listen = true;
-  @Input() room: Room;
-  @Input() roomId: string;
+  room: Room;
+  roomId: string;
 
   team$: Observable<Team>;
+
   constructor(
     private db: AngularFirestore,
     private dialog: MatDialog,
     private audioService: AudioService,
     private router: Router,
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit() {
-    let iterations = 0;
-    this.team$ = this.db
-      .collection('rooms')
-      .doc<Room>(this.roomId)
-      .valueChanges()
-      .pipe(
-        map(room => {
-          const team = room.latestPlayed;
-          // Skip the first load
-          if (iterations > 0) {
-            if (this.listen) {
-              this.audioService.play(team.sound);
-            }
-            return team;
-          }
-          return {} as Team;
-        }),
-        tap(_ => iterations++)
-      );
+    this.route.params
+      .pipe(first())
+      .subscribe(params => {
+        this.roomId = params['id'];
+
+        this.listenForLatestTeam();
+      });
   }
 
   ngOnDestroy() {
@@ -66,4 +55,22 @@ export class HostComponent implements OnInit, OnDestroy {
     });
   }
 
+  listenForLatestTeam(): any {
+    let iterations = 0;
+    this.team$ = this.db
+      .collection('latestPlayed')
+      .doc<Team>(this.roomId)
+      .valueChanges()
+      .pipe(
+        map(team => {
+          // Skip the first load
+          if (iterations > 0) {
+            this.audioService.play(team.sound);
+            return team;
+          }
+          return team || {} as Team;
+        }),
+        tap(_ => iterations++)
+      );
+  }
 }

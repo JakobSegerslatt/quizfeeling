@@ -32,16 +32,14 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.rooms$ = this.db.collection<Room>('rooms').snapshotChanges()
+    this.rooms$ = this.db.collection<Room>('rooms')
+      .valueChanges()
       .pipe(
         map(rooms => rooms.map(r => {
-          const data = r.payload.doc.data() as Room;
-          const id = r.payload.doc.id;
           const room = {
-            id,
-            ...data,
-            created: this.convertDate(data.created),
-            updated: this.convertDate(data.updated),
+            ...r,
+            created: this.convertDate(r.created),
+            updated: this.convertDate(r.updated),
           };
           return room;
         })),
@@ -49,7 +47,7 @@ export class HomeComponent implements OnInit {
         map(rooms => {
           const roomsToDelete = rooms.filter(r => !this.lessThan24HoursAgo(r.updated));
           roomsToDelete.forEach(r => {
-            this.db.collection<Room>('rooms').doc(r.id).delete();
+            this.deleteRoom(r);
           });
 
           return rooms.filter(r => this.lessThan24HoursAgo(r.updated));
@@ -68,6 +66,21 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  /**
+   * Remove a room and all it's connections,
+   * since teams are stored as a sub collection to the room,
+   * they are removed automatically
+   */
+  deleteRoom(room: Room): any {
+    this.db.collection('latestPlayed')
+      .doc(room.uid)
+      .delete();
+
+    this.db.collection<Room>('rooms')
+      .doc(room.uid)
+      .delete();
+  }
+
   /** Tries to convert a date stored in firestore */
   convertDate(date: Date): Date {
     let converted: Date;
@@ -79,23 +92,33 @@ export class HomeComponent implements OnInit {
 
 
   public create(): void {
-    this.db.collection<Room>('rooms').add(this.createForm.value);
+    this.db.collection<Room>('rooms')
+      .add(this.createForm.value)
+      .then(success => {
+        // Create an antry in latestPlayed Collection
+        this.db.collection('latestPlayed')
+          .doc(success.id)
+          .set({});
+
+        return success.update({ uid: success.id });
+      });
     this.createForm.reset();
   }
 
   public join(room: Room, password: string): void {
     if (password === room.password) {
       /** If a user successfully joins a room, update its date to last another 24 hours */
-      this.db.collection<Room>('rooms').doc(room.id).update({ updated: new Date() });
-      this.router.navigate(['room', room.id]);
+      this.db.collection<Room>('rooms').doc(room.uid).update({ updated: new Date() });
+      this.router.navigate(['room', room.uid]);
     } else {
       this.toast.open('Fel lösen!');
     }
   }
 
   private lessThan24HoursAgo(date: Date): boolean {
-    if (!date) { return false;
-}
+    if (!date) {
+      return false;
+    }
     const twentyFourHours = 1000 * 60 * 60 * 24;
     const yesterday = Date.now() - twentyFourHours;
     return date as any > yesterday;

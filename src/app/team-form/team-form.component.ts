@@ -1,20 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { SoundSource, MOVIESOUNDS } from '../models/sound-list';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
+import { contains, getRandomEntry } from 'papilion';
+
+import { SoundSource, MOVIESOUNDS } from '../models/sound-list';
+import { BodyEmojis, FaceEmojis } from '../models/emojis';
+
 import { AudioService } from '../services/audio.service';
-import { contains } from '../hepler-functions';
-import { BodyEmojis, FaceEmojis } from './emojis';
+import { Team } from '../models/team';
+import { TeamNames } from '../models/team-names';
 
 @Component({
   selector: 'app-team-form',
   templateUrl: './team-form.component.html',
   styleUrls: ['./team-form.component.scss']
 })
-export class TeamFormComponent implements OnInit {
+export class TeamFormComponent implements OnInit, OnDestroy {
   form: FormGroup;
+
+  /** Placeholder for the name input, mainly for inspiration of a team name */
+  placeholder: string;
+  placeholderIntervalId: any;
 
   soundSources = [...MOVIESOUNDS];
   filteredSounds: Observable<SoundSource[]>;
@@ -27,10 +35,7 @@ export class TeamFormComponent implements OnInit {
     public audioService: AudioService) { }
 
   ngOnInit() {
-    this.form = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(2)]],
-      sound: ['', [Validators.required]]
-    });
+    this.form = this.createTeamForm();
 
     this.filteredSounds = this.form.get('sound').valueChanges
       .pipe(
@@ -39,6 +44,27 @@ export class TeamFormComponent implements OnInit {
       );
 
     this.members = this.getRandomEmojis(3, 'people');
+
+    this.generateRandomPlaceholders();
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.placeholderIntervalId);
+  }
+
+  createTeamForm(): FormGroup {
+    return this.fb.group({
+      name: ['', [Validators.required, Validators.minLength(2)]],
+      sound: ['', [Validators.required]]
+    });
+  }
+
+  generateRandomPlaceholders(): any {
+    this.placeholder = `Kanske '${getRandomEntry(TeamNames)}'?`;
+
+    setInterval(() => {
+      this.placeholder = `..eller '${getRandomEntry(TeamNames)}'?`;
+    }, 3000);
   }
 
   getRandomEmojis(count: number, type: 'people' | 'faces'): string[] {
@@ -54,7 +80,7 @@ export class TeamFormComponent implements OnInit {
 
     // Push in a random emoji until we hit the count
     for (let index = 0; index < count; index++) {
-      const randomEmoji = emojiList[Math.floor(Math.random() * emojiList.length)];
+      const randomEmoji = getRandomEntry(emojiList, emojisToReturn);
       emojisToReturn.push(randomEmoji);
     }
 
@@ -66,7 +92,11 @@ export class TeamFormComponent implements OnInit {
   }
 
   public save() {
-    this.dialogRef.close(this.form.value);
+    const team: Team = {
+      ...this.form.value,
+      members: this.members,
+    };
+    this.dialogRef.close(team);
   }
 
   private filterSounds(value: string = ''): SoundSource[] {

@@ -1,20 +1,45 @@
-<div *ngIf="room$ | async"></div>
-<mat-tab-group mat-align-tabs="center">
+<div class="pagecontent">
+  <div>
+    <div *ngIf="room$ | async"></div>
+
+    <!-- <mat-tab-group mat-align-tabs="center">
   <mat-tab *ngFor="let t of teams$ | async;" [label]="t.name">
     <app-team [team]="t" [roomId]="roomId" [disableButton]="disableButton"></app-team>
   </mat-tab>
   <mat-tab *ngIf="teamCount > 0" label="Quizmaster" #quizMasterTab>
     <app-host [listen]="quizMasterTab.isActive" [room]="room" [roomId]="roomId"></app-host>
   </mat-tab>
-</mat-tab-group>
-<div *ngIf="teamCount === 0" class="pagecontent">
-  <mat-card>
-    <mat-card-title>Inga lag, inget quiz! 🤷</mat-card-title>
-    <div>Du kanske kan <b class="pointer" (click)="createTeam()">skapa</b> det första?</div>
-  </mat-card>
-</div>
-<div class="fab-section" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign=" center">
-  <button mat-fab (click)="createTeam()">
-    <mat-icon>add</mat-icon>
-  </button>
+</mat-tab-group> -->
+
+    <div *ngIf="teamCount === 0" class="pagecontent">
+      <mat-card>
+        <mat-card-title>Inga lag, inget quiz! 🤷</mat-card-title>
+        <div>Du kanske kan <b class="pointer" (click)="createTeam()">skapa</b> det första?</div>
+      </mat-card>
+    </div>
+
+    <h1 *ngIf="teamCount > 0" class="artsy">Lag</h1>
+    <div class="team-cards">
+      <mat-card class="team-card pointer" *ngFor="let t of teams$ | async" matRipple
+        [routerLink]="['/room', roomId, 'team', t.uid]">
+        <h3 class="artsy">{{ t.name }}</h3>
+        <div class="team-icons push-down" fxLayout fxLayoutAlign="space-around">
+          <span *ngFor="let member of (t.members || [])">{{ member }}</span>
+        </div>
+      </mat-card>
+
+      <mat-card class="team-card pointer" matRipple [routerLink]="['/room', roomId, 'host']">
+        <div fxLayout="row" fxLayoutAlign="space-between baseline">
+          <h3 class="artsy">Quizmaster</h3>
+          <h2>👑</h2>
+        </div>
+      </mat-card>
+    </div>
+
+    <div class="fab-section" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign=" center">
+      <button mat-fab (click)="createTeam()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </div>
 </div>

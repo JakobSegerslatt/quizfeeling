@@ -1,6 +1,6 @@
 @import '~@angular/material/theming';
 // Typography
-$custom-typography: mat-typography-config( $font-family: 'Press Start 2P, cursive, Roboto');
+$custom-typography: mat-typography-config( $font-family: "Roboto");
 @include mat-base-typography($custom-typography);
 @include mat-core($custom-typography);
 // LIGHT THEME DEFINITIONS

@@ -1,10 +1,17 @@
-<div class="fullheight pagecontent" fxLayout fxLayoutAlign="center">
-  <div fxLayout fxLayoutAlign="center">
+<div class="pagecontent">
+  <div *ngIf="team$ | async as t" fxLayout="column" fxLayoutAlign=" center" fxLayoutGap="30px">
     <span>
       <button [disabled]="disableButton" matTooltip="Svara på frågan" class="raise-hand-btn" mode="button" mat-fab
         color="primary" (click)="raiseHand()">
         <mat-icon>whatshot</mat-icon>
       </button>
     </span>
+
+    <h2 class="artsy center-text">{{ t.name }} </h2>
+    <div class="team-icons" fxLayout fxLayoutAlign="space-around" fxLayoutGap="20px">
+      <span *ngFor="let member of (t.members || [])">{{ member }}</span>
+    </div>
+    <button mat-button [routerLink]="['/room', roomId]">Gå tillbaka</button>
   </div>
+  <ng-container *ngIf="latestTeam$ | async"></ng-container>
 </div>

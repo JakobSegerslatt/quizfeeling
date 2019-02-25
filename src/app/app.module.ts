@@ -46,6 +46,8 @@ import { ConfirmDeleteComponent } from './confirm-delete/confirm-delete.componen
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'room/:id', component: RoomComponent },
+  { path: 'room/:id/team/:teamId', component: TeamComponent },
+  { path: 'room/:id/host', component: HostComponent },
   { path: 'about', component: AboutComponent },
   { path: '**', component: HomeComponent }
 ];

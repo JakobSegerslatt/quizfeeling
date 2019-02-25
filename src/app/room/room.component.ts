@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { first, tap } from 'rxjs/operators';
+import { first, tap, map } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Room } from '../models/room';
 import { Observable, timer } from 'rxjs';
@@ -10,6 +10,7 @@ import { MatDialog, MatSnackBar } from '@angular/material';
 import { TeamFormComponent } from '../team-form/team-form.component';
 import { AudioService } from '../services/audio.service';
 import { ConfirmDeleteComponent } from '../confirm-delete/confirm-delete.component';
+import { addDocumentIds, addDocumentIds2 } from '../map-id-firestore';
 
 @Component({
   selector: 'app-room',
@@ -44,25 +45,11 @@ export class RoomComponent implements OnInit {
           .valueChanges()
           .pipe(tap(r => this.room = r));
 
-        this.teams$ = this.db.collection<Team>('teams', ref =>
-          ref.where('roomId', '==', this.roomId))
+        this.teams$ = this.db
+          .collection('rooms').doc<Room>(this.roomId)
+          .collection<Team>('teams')
           .valueChanges()
           .pipe(tap(teams => this.teamCount = teams.length));
-      });
-
-    /**
-     * We subscribe in this component so that not each team
-     * component needs to listen for the same event
-     */
-    this.db
-      .collection('rooms')
-      .doc<Room>(this.roomId)
-      .valueChanges()
-      .subscribe(t => {
-        this.disableButton = true;
-        timer(3000).subscribe(_ => {
-          this.disableButton = false;
-        });
       });
   }
 
@@ -70,10 +57,14 @@ export class RoomComponent implements OnInit {
     this.dialog.open(TeamFormComponent)
       .afterClosed().subscribe((team: Team) => {
         if (team) {
-          this.db.collection<Team>('teams').add({
-            roomId: this.roomId,
-            ...team
-          });
+          this.db
+            .collection('rooms').doc(this.roomId)
+            .collection<Team>('teams')
+            .add(team)
+            .then(success => {
+              team.uid = success.id;
+              return success.update({ ...team });
+            });
 
           const snack = this.toast.open(`Lag ${team.name} har skapats. Lycka till!`);
           setTimeout(_ => {

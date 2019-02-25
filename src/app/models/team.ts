@@ -11,8 +11,8 @@ export class Team {
     // Used when saved on latestPlayed in room objects
     updated?: Date;
 
-    // Added by snapshot changes
-    id?: string;
+    // Added after saveF
+    uid?: string;
 
     // Added in client
     audio?: HTMLAudioElement;

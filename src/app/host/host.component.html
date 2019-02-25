@@ -1,29 +1,37 @@
-<div class="fullheight pagecontent" fxLayout fxLayoutAlign="center">
-  <mat-card>
-    <mat-card-title>Senaste lag</mat-card-title>
+<div class="pagecontent">
+  <div fxLayout="column" fxLayoutAlign="center">
 
-    <mat-card-content>
+    <mat-card>
+      <mat-card-title>Senaste lag</mat-card-title>
 
-      <div class="push-down-more" *ngIf="(team$ | async) as team">
+      <mat-card-content>
 
-        <ng-container *ngIf="team.name">
+        <div class="push-down-more" *ngIf="(team$ | async) as team">
 
-          <h1 class="artsy" class="center-text">{{ team.name }}</h1>
-          <em class="center-text">"{{ team.sound?.quote }}"</em>
+          <ng-container *ngIf="team.name">
 
-        </ng-container>
+            <h1 class="center-text artsy">{{ team.name }}</h1>
+            <div class="team-quote center-text">"{{ team.sound?.quote }}"</div>
+            <div class="team-icons push-down" fxLayout fxLayoutAlign="space-around">
+              <span *ngFor="let member of (team.members || [])">{{ member }}</span>
+            </div>
 
-        <div *ngIf="!team.name">
-          Inget lag har hunnit svara än!
+          </ng-container>
+
+          <div *ngIf="!team.name">
+            Inget lag har hunnit svara än!
+          </div>
+
         </div>
-
-      </div>
-    </mat-card-content>
-    <mat-card-actions>
-      <!-- <button color="warn" [disabled]="!room" mat-raised-button (click)="deleteRoom()">
+      </mat-card-content>
+      <mat-card-actions>
+        <!-- <button color="warn" [disabled]="!room" mat-raised-button (click)="deleteRoom()">
         RADERA QUIZ
       </button> -->
-      <div class="error nudge-down">Quizet raderas automatisk efter 24 timmars inaktivitet</div>
-    </mat-card-actions>
-  </mat-card>
+        <div class="error nudge-down center-text">Quizet raderas automatisk efter 24 timmars inaktivitet</div>
+      </mat-card-actions>
+    </mat-card>
+
+    <button class="push-down" mat-button [routerLink]="['/room', roomId]">Gå tillbaka</button>
+  </div>
 </div>

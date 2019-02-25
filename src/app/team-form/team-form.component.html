@@ -8,11 +8,11 @@
     <div class="team-icons" fxLayout fxLayoutAlign="space-around">
       <span *ngFor="let member of members">{{ member }}</span>
     </div>
-    <div class="flex-form push-down">
+    <div class="push-down">
 
       <mat-form-field appearance="outline">
         <mat-label>Lagnamn</mat-label>
-        <input type="text" matInput formControlName="name">
+        <input type="text" [placeholder]="placeholder" matInput formControlName="name">
       </mat-form-field>
 
     </div>
@@ -33,6 +33,6 @@
   </div>
   <div mat-dialog-actions>
     <button mat-button mat-dialog-close>STÄNG</button>
-    <button mat-button color="primary" (click)="save()" [disabled]="form.invalid">SPARA</button>
+    <button mat-raised-button color="primary" (click)="save()" [disabled]="form.invalid">SKAPA</button>
   </div>
 </div>
