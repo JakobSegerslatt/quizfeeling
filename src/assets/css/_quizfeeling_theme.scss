@@ -5,10 +5,10 @@
     $accent: map-get($theme, accent);
     $warn: map-get($theme, warn);
     .light-text {
-      color: white;
+        color: white;
     }
     .dark-text {
-      color: black;
+        color: black;
     }
     .primary-background {
         background-color: mat-color($primary);
@@ -25,7 +25,8 @@
     .accent {
         color: mat-color($accent);
     }
-    .warn, .error {
+    .warn,
+    .error {
         color: mat-color($warn);
     }
 }

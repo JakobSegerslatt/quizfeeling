@@ -42,6 +42,7 @@ import { AboutComponent } from './about/about.component';
 import { TeamFormComponent } from './team-form/team-form.component';
 import { TeamComponent } from './team/team.component';
 import { ConfirmDeleteComponent } from './confirm-delete/confirm-delete.component';
+import { NgPapilionModule } from 'ng-papilion';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -74,6 +75,7 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     FormsModule,
     CommonModule,
+    NgPapilionModule,
 
     // Material modules
     MatAutocompleteModule,

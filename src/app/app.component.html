@@ -10,12 +10,12 @@
   </span>
 </mat-toolbar>
 <mat-sidenav-container class="sidenav-container mat-typography">
-  <mat-sidenav #drawer class="sidenav" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" mode="side">
+  <!-- <mat-sidenav #drawer class="sidenav" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" mode="side">
     <mat-nav-list fxLayout="column" class="fullheight" fxLayoutAlign="space-between">
       <a mat-list-item routerLink="home">Välj ett quizrum</a>
       <a mat-list-item routerLink="about">Om appen</a>
     </mat-nav-list>
-  </mat-sidenav>
+  </mat-sidenav> -->
   <mat-sidenav-content class="fullheight">
 
     <router-outlet class="fullheight"></router-outlet>
