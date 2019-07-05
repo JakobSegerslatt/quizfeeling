@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';

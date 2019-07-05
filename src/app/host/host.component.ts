@@ -4,7 +4,7 @@ import { Subscription, Observable } from 'rxjs';
 import { map, skip, tap, first } from 'rxjs/operators';
 import { Team } from '../models/team';
 import { AudioService } from '../services/audio.service';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDeleteComponent } from '../confirm-delete/confirm-delete.component';
 import { Room } from '../models/room';
 import { Router, ActivatedRoute } from '@angular/router';

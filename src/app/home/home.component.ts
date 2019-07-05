@@ -5,7 +5,7 @@ import { Room } from '../models/room';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { tap, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { LineToLineMappedSource } from 'webpack-sources';
 
 

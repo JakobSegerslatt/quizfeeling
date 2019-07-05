@@ -12,7 +12,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^8.1.0",
-    "@angular/cdk": "^7.3.3",
+    "@angular/cdk": "^8.0.2",
     "@angular/common": "^8.1.0",
     "@angular/compiler": "^8.1.0",
     "@angular/core": "^8.1.0",
@@ -20,7 +20,7 @@
     "@angular/flex-layout": "8.0.0-beta.26",
     "@angular/forms": "^8.1.0",
     "@angular/http": "^7.2.6",
-    "@angular/material": "^7.3.3",
+    "@angular/material": "^8.0.2",
     "@angular/platform-browser": "^8.1.0",
     "@angular/platform-browser-dynamic": "^8.1.0",
     "@angular/router": "^8.1.0",
@@ -28,9 +28,9 @@
     "core-js": "^2.5.4",
     "firebase": "^5.8.4",
     "hammerjs": "^2.0.8",
-    "ng-papilion": "0.0.5",
+    "ng-papilion": "0.0.8",
     "papilion": "^1.0.7",
-    "rxjs": "^6.4.0",
+    "rxjs": "^6.5.2",
     "tslib": "^1.9.0",
     "zone.js": "^0.9.1"
   },
@@ -42,7 +42,7 @@
     "@types/jasmine": "~3.3.9",
     "@types/jasminewd2": "~2.0.6",
     "@types/node": "~8.9.4",
-    "codelyzer": "^4.5.0",
+    "codelyzer": "^5.1.0",
     "jasmine-core": "~3.3.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "^4.1.0",
@@ -51,8 +51,8 @@
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.4.0",
     "protractor": "~5.4.2",
-    "ts-node": "~8.0.2",
-    "tslint": "~5.12.1",
+    "ts-node": "~8.3.0",
+    "tslint": "~5.18.0",
     "typescript": "~3.4.5"
   }
 }
