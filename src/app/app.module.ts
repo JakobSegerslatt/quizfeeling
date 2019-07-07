@@ -8,8 +8,6 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFireStorageModule } from '@angular/fire/storage';
-import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import { LayoutModule } from '@angular/cdk/layout';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -67,7 +65,9 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
+    ServiceWorkerModule.register('/ngsw-worker.js', {
+      enabled: environment.production
+    }),
     LayoutModule,
     FlexLayoutModule,
     ReactiveFormsModule,
@@ -92,12 +92,10 @@ const appRoutes: Routes = [
     MatToolbarModule,
     MatTooltipModule,
 
-    RouterModule.forRoot(
-      appRoutes,
-    )
+    RouterModule.forRoot(appRoutes)
   ],
   entryComponents: [TeamFormComponent, ConfirmDeleteComponent],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

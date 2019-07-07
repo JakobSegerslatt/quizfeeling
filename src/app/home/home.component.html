@@ -1,23 +1,40 @@
 <div class="pagecontent">
   <div style="padding: 5px">
     <div>
-      <div *ngIf="loading" fxLayout="column" fxLayoutAlign="center center">
+      <div
+        *ngIf="loading$ | async"
+        fxLayout="column"
+        fxLayoutAlign="center center"
+      >
         <mat-spinner></mat-spinner>
         <h3>
           Laddar quizrum...
         </h3>
       </div>
-      
-      <h2 *ngIf="roomCount === 0 && !loading">Det finns inga aktiva quiz just nu</h2>
+
+      <h2 *ngIf="roomCount === 0 && !(loading$ | async)">
+        Det finns inga aktiva quiz just nu
+      </h2>
       <h2 *ngIf="roomCount > 0">Anslut till ett quiz 🙋</h2>
       <div fxLayout="row wrap" fxLayoutGap="15px">
-        <mat-card *ngFor="let room of rooms$ | async" class="push-up room-card pointer" matRipple>
+        <mat-card
+          *ngFor="let room of rooms$ | async"
+          class="push-up room-card pointer"
+          matRipple
+        >
           <form (ngSubmit)="join(room, room.inputPassword)">
-            <mat-card-title class="artsy" (click)="room.show = !room.show">{{ room.name }}</mat-card-title>
+            <mat-card-title class="artsy" (click)="room.show = !room.show">{{
+              room.name
+            }}</mat-card-title>
             <mat-form-field *ngIf="room.show" appearance="outline">
               <mat-label>Lösenord</mat-label>
-              <input matInput type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="room.inputPassword"
-                (click)="$event.stopPropagation()">
+              <input
+                matInput
+                type="text"
+                [ngModelOptions]="{ standalone: true }"
+                [(ngModel)]="room.inputPassword"
+                (click)="$event.stopPropagation()"
+              />
             </mat-form-field>
           </form>
         </mat-card>
@@ -33,16 +50,23 @@
       <div fxLayout="row wrap" fxLayoutGap="15px" class="push-down">
         <mat-form-field appearance="outline">
           <mat-label>Quiznamn</mat-label>
-          <input matInput type="text" formControlName="name">
+          <input matInput type="text" formControlName="name" />
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Lösenord</mat-label>
-          <input matInput type="text" formControlName="password">
+          <input matInput type="text" formControlName="password" />
         </mat-form-field>
       </div>
       <mat-card-actions>
-        <button mat-raised-button color="primary" type="submit" (click)="create()"
-          [disabled]="createForm.invalid">SKAPA</button>
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          (click)="create()"
+          [disabled]="createForm.invalid"
+        >
+          SKAPA
+        </button>
       </mat-card-actions>
     </mat-card>
   </div>

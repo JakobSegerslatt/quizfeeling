@@ -137,5 +137,8 @@
       }
     }
   },
-  "defaultProject": "quizfeeling"
+  "defaultProject": "quizfeeling",
+  "cli": {
+    "defaultCollection": "@datorama/akita"
+  }
 }

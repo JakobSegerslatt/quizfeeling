@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
-import { first, tap, skip  } from 'rxjs/operators';
+import { first, tap, skip, map } from 'rxjs/operators';
 
 import { Team } from '../models/team';
 import { AudioService } from '../services/audio.service';
 import { Room } from '../models/room';
+import { RoomService } from '../services/room.service';
 
 @Component({
   selector: 'app-team',
@@ -17,7 +18,6 @@ export class TeamComponent implements OnInit {
   roomId: string;
   teamId: string;
 
-  team: Team;
   team$: Observable<Team>;
 
   /** The team who latest raised their hand */
@@ -27,26 +27,23 @@ export class TeamComponent implements OnInit {
 
   constructor(
     private audioService: AudioService,
-    private db: AngularFirestore,
+    private roomService: RoomService,
     private route: ActivatedRoute,
-  ) { }
+    private db: AngularFirestore
+  ) {}
 
   ngOnInit() {
-    this.route.params
-      .pipe(first())
-      .subscribe(params => {
-        // Get objtype
-        this.roomId = params['id'];
-        this.teamId = params['teamId'];
+    this.route.params.pipe(first()).subscribe(params => {
+      // Get objtype
+      this.roomId = params['id'];
+      this.teamId = params['teamId'];
 
-        this.team$ = this.db
-          .collection('rooms')
-          .doc<Room>(this.roomId)
-          .collection('teams')
-          .doc<Team>(this.teamId)
-          .valueChanges()
-          .pipe(tap(team => this.team = team));
-      });
+      this.roomService.setActiveRoom(this.roomId);
+
+      this.team$ = this.roomService.activeTeams$.pipe(
+        map(teams => teams.find(t => t.id === this.teamId))
+      );
+    });
 
     this.listenForLatestTeam();
   }
@@ -66,20 +63,22 @@ export class TeamComponent implements OnInit {
             this.disableButton = false;
             clearTimeout(id);
           }, 3000);
-        }));
+        })
+      );
   }
 
-  public raiseHand(): void {
+  public raiseHand(team: Team): void {
     // Play audio
-    this.audioService.play(this.team.sound);
+    this.audioService.play(team.sound);
 
     // Update latest played audio in the db
     this.db
       .collection('latestPlayed')
       .doc<Room>(this.roomId)
       .update({
-        ...this.team,
+        ...team,
         updated: new Date()
-      }).then();
+      })
+      .then();
   }
 }
