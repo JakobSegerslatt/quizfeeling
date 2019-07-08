@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Subscription, Observable } from 'rxjs';
-import { map, skip, tap, first } from 'rxjs/operators';
+import { map, skip, tap, first, throttleTime } from 'rxjs/operators';
 import { Team } from '../models/team';
 import { AudioService } from '../services/audio.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -57,6 +57,7 @@ export class HostComponent implements OnInit, OnDestroy {
   listenForLatestTeam(): any {
     let iterations = 0;
     this.team$ = this.roomService.latestPlayed$.pipe(
+      throttleTime(1000),
       map(team => {
         // Skip the first load
         if (iterations > 0) {

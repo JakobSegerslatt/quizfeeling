@@ -68,6 +68,8 @@ export class TeamComponent implements OnInit {
   }
 
   public raiseHand(team: Team): void {
+    this.disableButton = true;
+
     // Play audio
     this.audioService.play(team.sound);
 
